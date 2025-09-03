@@ -1,11 +1,12 @@
-const express = require('express');
-const mongoose = require('mongoose');
-const cors = require('cors');
-require('dotenv').config();
+const express = require("express");
+const mongoose = require("mongoose");
+const cors = require("cors");
+require("dotenv").config();
 
 const app = express();
 const PORT = process.env.PORT || 3000;
-const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/myapp';
+const MONGODB_URI =
+  process.env.MONGODB_URI || "mongodb://admin:password@localhost:27017/myapp";
 
 // Middleware
 app.use(cors());
@@ -13,36 +14,37 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // MongoDB connection
-mongoose.connect(MONGODB_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-})
-.then(() => {
-  console.log('Connected to MongoDB');
-})
-.catch((error) => {
-  console.error('MongoDB connection error:', error);
-});
+mongoose
+  .connect(MONGODB_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then(() => {
+    console.log("Connected to MongoDB");
+  })
+  .catch((error) => {
+    console.error("MongoDB connection error:", error);
+  });
 
 // Simple schema for demonstration
 const ItemSchema = new mongoose.Schema({
   name: { type: String, required: true },
   description: String,
-  createdAt: { type: Date, default: Date.now }
+  createdAt: { type: Date, default: Date.now },
 });
 
-const Item = mongoose.model('Item', ItemSchema);
+const Item = mongoose.model("Item", ItemSchema);
 
 // Routes
-app.get('/', (req, res) => {
-  res.json({ 
-    message: 'Express.js + MongoDB API is running!',
-    timestamp: new Date().toISOString()
+app.get("/", (req, res) => {
+  res.json({
+    message: "Express.js + MongoDB API is running!",
+    timestamp: new Date().toISOString(),
   });
 });
 
 // Get all items
-app.get('/api/items', async (req, res) => {
+app.get("/api/items", async (req, res) => {
   try {
     const items = await Item.find();
     res.json(items);
@@ -52,7 +54,7 @@ app.get('/api/items', async (req, res) => {
 });
 
 // Create new item
-app.post('/api/items', async (req, res) => {
+app.post("/api/items", async (req, res) => {
   try {
     const item = new Item(req.body);
     const savedItem = await item.save();
@@ -63,11 +65,11 @@ app.post('/api/items', async (req, res) => {
 });
 
 // Get item by ID
-app.get('/api/items/:id', async (req, res) => {
+app.get("/api/items/:id", async (req, res) => {
   try {
     const item = await Item.findById(req.params.id);
     if (!item) {
-      return res.status(404).json({ error: 'Item not found' });
+      return res.status(404).json({ error: "Item not found" });
     }
     res.json(item);
   } catch (error) {
@@ -76,15 +78,14 @@ app.get('/api/items/:id', async (req, res) => {
 });
 
 // Update item
-app.put('/api/items/:id', async (req, res) => {
+app.put("/api/items/:id", async (req, res) => {
   try {
-    const item = await Item.findByIdAndUpdate(
-      req.params.id,
-      req.body,
-      { new: true, runValidators: true }
-    );
+    const item = await Item.findByIdAndUpdate(req.params.id, req.body, {
+      new: true,
+      runValidators: true,
+    });
     if (!item) {
-      return res.status(404).json({ error: 'Item not found' });
+      return res.status(404).json({ error: "Item not found" });
     }
     res.json(item);
   } catch (error) {
@@ -93,29 +94,30 @@ app.put('/api/items/:id', async (req, res) => {
 });
 
 // Delete item
-app.delete('/api/items/:id', async (req, res) => {
+app.delete("/api/items/:id", async (req, res) => {
   try {
     const item = await Item.findByIdAndDelete(req.params.id);
     if (!item) {
-      return res.status(404).json({ error: 'Item not found' });
+      return res.status(404).json({ error: "Item not found" });
     }
-    res.json({ message: 'Item deleted successfully' });
+    res.json({ message: "Item deleted successfully" });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 });
 
 // Health check endpoint
-app.get('/health', (req, res) => {
-  res.json({ 
-    status: 'healthy',
-    mongodb: mongoose.connection.readyState === 1 ? 'connected' : 'disconnected',
-    timestamp: new Date().toISOString()
+app.get("/health", (req, res) => {
+  res.json({
+    status: "healthy",
+    mongodb:
+      mongoose.connection.readyState === 1 ? "connected" : "disconnected",
+    timestamp: new Date().toISOString(),
   });
 });
 
 // Start server
-app.listen(PORT, '0.0.0.0', () => {
+app.listen(PORT, "0.0.0.0", () => {
   console.log(`Server is running on port ${PORT}`);
   console.log(`MongoDB URI: ${MONGODB_URI}`);
 });
