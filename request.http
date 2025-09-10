@@ -1,0 +1,30 @@
+### Create a new product
+POST http://localhost:3100/products
+Content-Type: application/json
+
+{
+  "name": "Wedding Cake",
+  "description": "A beautiful cake for weddings.",
+  "price": 120.5,
+  "categories": ["cake", "dessert"],
+  "type": "wedding"
+}
+
+### Get all products
+GET http://localhost:3100/products
+
+### Get a product by ID
+GET http://localhost:3100/products/68c1873222c9baf75b7a2dbe
+
+### Update a product by ID
+PUT http://localhost:3100/products/68c1873222c9baf75b7a2dbe
+Content-Type: application/json
+
+{
+  "name": "Updated Cake",
+  "price": 150.0,
+  "type": "wedding"
+}
+
+### Delete a product by ID
+DELETE http://localhost:3100/products/{{productId}}
