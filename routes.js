@@ -1,9 +1,13 @@
 const express = require("express");
+
 const productRoutes = require("./products/product.routes");
+const eventRoutes = require("./products/event.routes");
 
 const router = express.Router();
 
+
 router.use("/products", productRoutes);
+router.use("/events", eventRoutes);
 
 router.get("/", (req, res) => {
   res.json({

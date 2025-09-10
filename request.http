@@ -14,10 +14,10 @@ Content-Type: application/json
 GET http://localhost:3100/products
 
 ### Get a product by ID
-GET http://localhost:3100/products/68c1873222c9baf75b7a2dbe
+GET http://localhost:3100/products/1
 
 ### Update a product by ID
-PUT http://localhost:3100/products/68c1873222c9baf75b7a2dbe
+PUT http://localhost:3100/products/1
 Content-Type: application/json
 
 {
@@ -27,4 +27,4 @@ Content-Type: application/json
 }
 
 ### Delete a product by ID
-DELETE http://localhost:3100/products/{{productId}}
+DELETE http://localhost:3100/products/1
