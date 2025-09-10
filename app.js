@@ -15,23 +15,8 @@ connectToDatabase();
 
 
 // Routes
-app.get("/", (req, res) => {
-  res.json({
-    message: "Express.js + MongoDB API is running!",
-    timestamp: new Date().toISOString(),
-  });
-});
 
-
-
-// Health check endpoint
-app.get("/health", (req, res) => {
-  res.json({
-    status: "healthy",
-    mongodb:
-      mongoose.connection.readyState === 1 ? "connected" : "disconnected",
-    timestamp: new Date().toISOString(),
-  });
-});
+const routes = require('./routes');
+app.use('/', routes);
 
 module.exports = app;
