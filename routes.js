@@ -1,7 +1,7 @@
 const express = require("express");
 
 const productRoutes = require("./products/product.routes");
-const eventRoutes = require("./products/event.routes");
+const eventRoutes = require("./events/event.routes");
 
 const router = express.Router();
 
