@@ -3,7 +3,7 @@ version: '3.8'
 services:
   # Express.js Node.js application
   app:
-    build: .
+    build: ./api
     ports:
       - "3100:3000"
     environment:
@@ -12,7 +12,7 @@ services:
     depends_on:
       - mongodb
     volumes:
-      - .:/app
+      - ./api:/app
       - /app/node_modules
     restart: unless-stopped
     command: npm run dev
