@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   # Express.js Node.js application
-  app:
+  api:
     build: ./api
     ports:
       - "3100:3000"
@@ -16,6 +16,13 @@ services:
       - /app/node_modules
     restart: unless-stopped
     command: npm run dev
+
+  # React 19 frontend application
+  app:
+    build: ./app
+    ports:
+      - "3200:3200"
+    restart: unless-stopped
 
   # MongoDB database
   mongodb:
