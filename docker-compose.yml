@@ -3,6 +3,7 @@ version: '3.8'
 services:
   # Express.js Node.js application
   api:
+    container_name: superlist-api
     build: ./api
     ports:
       - "3100:3000"
@@ -19,13 +20,21 @@ services:
 
   # React 19 frontend application
   app:
+    container_name: superlist-app
     build: ./app
     ports:
       - "3200:3200"
+    depends_on:
+      - api
+    volumes:
+      - ./app:/app
+      - /app/node_modules
     restart: unless-stopped
+    command: npm run dev
 
   # MongoDB database
   mongodb:
+    container_name: superlist-mongodb
     image: mongo:7.0
     ports:
       - "27017:27017"
