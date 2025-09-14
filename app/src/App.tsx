@@ -2,7 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import Home from './pages/Home'
 import './App.css'
 
-function App() {
+function App(): React.JSX.Element {
   return (
     <Router>
       <div className="App">
