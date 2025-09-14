@@ -1,23 +1,21 @@
-const express = require("express");
-
-const productRoutes = require("./products/product.routes");
-const eventRoutes = require("./events/event.routes");
+import express, { Request, Response } from 'express';
+import productRoutes from './products/product.routes';
+import eventRoutes from './events/event.routes';
+import { mongoose } from './core/database';
 
 const router = express.Router();
-
 
 router.use("/products", productRoutes);
 router.use("/events", eventRoutes);
 
-router.get("/", (req, res) => {
+router.get("/", (_req: Request, res: Response) => {
   res.json({
     message: "Express.js + MongoDB API is running!",
     timestamp: new Date().toISOString(),
   });
 });
 
-router.get("/health", (req, res) => {
-  const mongoose = require("./core/database").mongoose;
+router.get("/health", (_req: Request, res: Response) => {
   res.json({
     status: "healthy",
     mongodb: mongoose.connection.readyState === 1 ? "connected" : "disconnected",
@@ -25,4 +23,4 @@ router.get("/health", (req, res) => {
   });
 });
 
-module.exports = router;
+export default router;

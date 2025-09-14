@@ -1,16 +1,15 @@
-const mongoose = require("mongoose");
-require("dotenv").config();
+import mongoose from 'mongoose';
+import dotenv from 'dotenv';
 
-const MONGODB_URI =
-  process.env.MONGODB_URI || "mongodb://admin:password@localhost:27017/myapp";
+dotenv.config();
+
+const MONGODB_URI: string =
+  process.env['MONGODB_URI'] || "mongodb://admin:password@localhost:27017/myapp";
 
 // MongoDB connection function
-const connectToDatabase = async () => {
+const connectToDatabase = async (): Promise<void> => {
   try {
-    await mongoose.connect(MONGODB_URI, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    });
+    await mongoose.connect(MONGODB_URI);
     console.log("Connected to MongoDB");
   } catch (error) {
     console.error("MongoDB connection error:", error);
@@ -23,7 +22,7 @@ mongoose.connection.on("connected", () => {
   console.log("Mongoose connected to MongoDB");
 });
 
-mongoose.connection.on("error", (error) => {
+mongoose.connection.on("error", (error: Error) => {
   console.error("Mongoose connection error:", error);
 });
 
@@ -38,7 +37,7 @@ process.on("SIGINT", async () => {
   process.exit(0);
 });
 
-module.exports = {
+export {
   connectToDatabase,
   mongoose,
   MONGODB_URI,

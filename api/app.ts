@@ -1,6 +1,7 @@
-const express = require("express");
-const cors = require("cors");
-const { connectToDatabase, mongoose } = require("./core/database");
+import express from 'express';
+import cors from 'cors';
+import { connectToDatabase } from './core/database';
+import routes from './routes';
 
 const app = express();
 
@@ -12,11 +13,7 @@ app.use(express.urlencoded({ extended: true }));
 // Initialize database connection
 connectToDatabase();
 
-
-
 // Routes
-
-const routes = require('./routes');
 app.use('/', routes);
 
-module.exports = app;
+export default app;

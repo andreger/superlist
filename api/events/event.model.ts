@@ -1,6 +1,7 @@
-const mongoose = require('mongoose');
+import mongoose, { Schema } from 'mongoose';
+import { IEvent } from '../types';
 
-const EventSchema = new mongoose.Schema({
+const EventSchema: Schema = new mongoose.Schema({
   title: {
     type: String,
     required: true,
@@ -21,6 +22,6 @@ const EventSchema = new mongoose.Schema({
   }
 });
 
-const Event = mongoose.model('Event', EventSchema);
+const Event = mongoose.model<IEvent>('Event', EventSchema);
 
-module.exports = Event;
+export default Event;
