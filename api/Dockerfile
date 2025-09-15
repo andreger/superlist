@@ -1,4 +1,4 @@
-FROM node:18-alpine
+FROM node:20-alpine
 
 # Set working directory
 WORKDIR /app
@@ -7,10 +7,16 @@ WORKDIR /app
 COPY package*.json ./
 
 # Install dependencies
-RUN npm install
+RUN npm ci
 
-# Copy application code
-COPY . .
+# Copy TypeScript configuration
+COPY tsconfig.json ./
+
+# Copy source code
+COPY src/ ./src/
+
+# Build the application
+RUN npm run build
 
 # Expose port
 EXPOSE 3000

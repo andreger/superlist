@@ -23,7 +23,7 @@ services:
     container_name: superlist-app
     build: ./app
     ports:
-      - "3200:3200"
+      - "3200:3000"
     depends_on:
       - api
     volumes:
